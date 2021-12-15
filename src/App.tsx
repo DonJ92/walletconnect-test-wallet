@@ -415,6 +415,8 @@ class App extends React.Component<{}> {
     this.setState({
       payload,
     });
+
+    console.log(paylod);
   };
 
   public closeRequest = async () => {
