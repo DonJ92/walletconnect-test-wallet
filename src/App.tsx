@@ -416,7 +416,7 @@ class App extends React.Component<{}> {
       payload,
     });
 
-    console.log(paylod);
+    console.log(payload);
   };
 
   public closeRequest = async () => {
