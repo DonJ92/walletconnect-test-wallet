@@ -12,7 +12,8 @@ export function filterEthereumRequests(payload: any) {
     payload.method.startsWith("net_") ||
     payload.method.startsWith("shh_") ||
     payload.method.startsWith("personal_") ||
-    payload.method.startsWith("wallet_")
+    payload.method.startsWith("wallet_") ||
+    payload.method.startsWith("plt_")
   );
 }
 
