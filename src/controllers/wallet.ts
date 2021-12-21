@@ -225,7 +225,30 @@ export class WalletController {
   }
 
   public async sendPLTTransaction(transaction: any) {
-    
+    if (this.wallet) {
+      if (
+        transaction.from &&
+        transaction.from.toLowerCase() !== this.wallet.address.toLowerCase()
+      ) {
+        console.error("Transaction request From doesn't match active account");
+      }
+
+      if (transaction.from) {
+        delete transaction.from;
+      }
+
+      // ethers.js expects gasLimit instead
+      if ("gas" in transaction) {
+        transaction.gasLimit = transaction.gas;
+        delete transaction.gas;
+      }
+
+      const result = await this.wallet.sendTransaction(transaction);
+      return result.hash;
+    } else {
+      console.error("No Active Account");
+    }
+    return null;
   }
 }
 
