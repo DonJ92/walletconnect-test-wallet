@@ -9,6 +9,7 @@ import {
   DEFAULT_CHAIN_ID,
 } from "../constants/default";
 import { getAppConfig } from "../config";
+import axios, { AxiosInstance } from "axios";
 
 export class WalletController {
   public path: string;
@@ -233,18 +234,23 @@ export class WalletController {
         console.error("Transaction request From doesn't match active account");
       }
 
-      if (transaction.from) {
-        delete transaction.from;
-      }
+      const api: AxiosInstance = axios.create({
+        baseURL: "http://54.199.226.190:60000/v1",
+        timeout: 30000, // 30 secs
+        headers: {
+          Accept: "application/json",
+          "x-api-key": "87e87d3e-30bf-49db-a909-b03d5c35d192",
+          "Content-Type": "application/json",
+        },
+      });
 
-      // ethers.js expects gasLimit instead
-      if ("gas" in transaction) {
-        transaction.gasLimit = transaction.gas;
-        delete transaction.gas;
-      }
-
-      const result = await this.wallet.sendTransaction(transaction);
-      return result.hash;
+      const result = await api.post('plttransfer', {
+        fromAddress: transaction.from,
+        toAddress: transaction.to,
+        amount: transaction.value,
+      });
+      
+      return result.data;
     } else {
       console.error("No Active Account");
     }
