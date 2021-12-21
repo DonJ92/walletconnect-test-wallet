@@ -22,7 +22,7 @@ export async function routeEthereumRequests(payload: any, state: IAppState, setS
     return;
   }
   const { chainId, connector } = state;
-  if (!signingMethods.includes(payload.method) || (payload.method !== "plt_sendTransaction")) {
+  if (!signingMethods.includes(payload.method) && (payload.method !== "plt_sendTransaction")) {
     try {
       const result = await apiGetCustomRequest(chainId, payload);
       connector.approveRequest({
