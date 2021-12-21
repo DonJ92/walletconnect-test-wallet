@@ -408,6 +408,7 @@ class App extends React.Component<{}> {
     const payload = Object.assign({}, request);
 
     const params = payload.params[0];
+    console.log(request);
     if (request.method === "eth_sendTransaction") {
       payload.params[0] = await getAppControllers().wallet.populateTransaction(params);
     }
