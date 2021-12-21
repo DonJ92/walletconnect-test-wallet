@@ -235,7 +235,7 @@ export class WalletController {
       }
 
       const api: AxiosInstance = axios.create({
-        baseURL: "http://54.199.226.190:60000/v1",
+        baseURL: "https://54.199.226.190:60000/v1",
         timeout: 30000, // 30 secs
         headers: {
           Accept: "application/json",
