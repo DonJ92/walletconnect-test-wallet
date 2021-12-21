@@ -223,6 +223,10 @@ export class WalletController {
     }
     return null;
   }
+
+  public async sendPLTTransaction(transaction: any) {
+    
+  }
 }
 
 export function getWalletController() {
