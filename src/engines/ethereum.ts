@@ -93,6 +93,18 @@ export function renderEthereumRequests(payload: any): IRequestRenderParams[] {
         },
       ];
       break;
+    case "plt_sendTransaction":
+    params = [
+      ...params,
+      { label: "From", value: payload.params[0].from },
+      { label: "To", value: payload.params[0].to },
+      {
+        label: "Value",
+        value: payload.params[0].value ? convertHexToNumber(payload.params[0].value) : "",
+      },
+    ];
+    break;
+
     default:
       params = [
         ...params,
