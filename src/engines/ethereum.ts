@@ -122,7 +122,6 @@ export async function signEthereumRequests(payload: any, state: IAppState, setSt
 
     switch (payload.method) {
       case "eth_sendTransaction":
-        console.log("eth_sendTransaction");
         transaction = payload.params[0];
         addressRequested = transaction.from;
         if (address.toLowerCase() === addressRequested.toLowerCase()) {
