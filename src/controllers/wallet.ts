@@ -241,6 +241,7 @@ export class WalletController {
           Accept: "application/json",
           "x-api-key": "87e87d3e-30bf-49db-a909-b03d5c35d192",
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
       });
 
