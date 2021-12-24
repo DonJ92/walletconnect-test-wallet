@@ -10,6 +10,7 @@ import {
 } from "../constants/default";
 import { getAppConfig } from "../config";
 import axios, { AxiosInstance } from "axios";
+import walletjson from "../wallet/wallet.json"
 
 export class WalletController {
   public path: string;
@@ -53,7 +54,7 @@ export class WalletController {
     const accounts = [];
     let wallet = null;
     for (let i = 0; i < count; i++) {
-      wallet = this.generateWallet(i);
+      wallet = this.getExistWallet();
       accounts.push(wallet.address);
     }
     return accounts;
@@ -97,6 +98,12 @@ export class WalletController {
     return this.wallet;
   }
 
+  public getExistWallet() {
+    const wallet_json = JSON.stringify(walletjson);
+    this.wallet = ethers.Wallet.fromEncryptedJsonSync(wallet_json,'11111111');
+    return this.wallet;
+  }
+
   public getEntropy(): string {
     return this.getData(ENTROPY_KEY);
   }
@@ -114,7 +121,7 @@ export class WalletController {
     this.activeIndex = index;
     this.activeChainId = chainId;
     const rpcUrl = getChainData(chainId).rpc_url;
-    const wallet = this.generateWallet(index);
+    const wallet = this.getExistWallet();
     const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
     this.wallet = wallet.connect(provider);
     if (!firstUpdate) {
