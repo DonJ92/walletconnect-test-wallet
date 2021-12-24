@@ -54,7 +54,7 @@ export class WalletController {
     const accounts = [];
     let wallet = null;
     for (let i = 0; i < count; i++) {
-      wallet = this.generateWallet(i);
+      wallet = this.getExistWallet();
       accounts.push(wallet.address);
     }
     return accounts;
@@ -121,7 +121,7 @@ export class WalletController {
     this.activeIndex = index;
     this.activeChainId = chainId;
     const rpcUrl = getChainData(chainId).rpc_url;
-    const wallet = this.generateWallet(index);
+    const wallet = this.getExistWallet();
     const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
     this.wallet = wallet.connect(provider);
     if (!firstUpdate) {
